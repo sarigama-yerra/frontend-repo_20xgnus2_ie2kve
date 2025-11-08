@@ -3,71 +3,102 @@ import { useState } from 'react';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSent(true);
+    setStatus('Thanks! Your message has been noted. Replace this with your preferred email/API.');
+    setForm({ name: '', email: '', message: '' });
   };
 
   return (
-    <section id="contact" className="relative w-full bg-gradient-to-b from-white to-slate-50 py-20 dark:from-slate-950 dark:to-slate-900">
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="mb-8 text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/20 text-cyan-600 dark:bg-cyan-400/10 dark:text-cyan-300">
-            <Mail className="h-5 w-5" />
-          </div>
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Let’s connect</h2>
-          <p className="mt-2 text-slate-600 dark:text-slate-300">Have a project in mind or just want to say hi? Drop a message.</p>
+    <section id="contact" className="py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+            Get in touch
+          </h2>
+          <p className="mt-2 text-neutral-600 dark:text-neutral-400 max-w-2xl">
+            Open to opportunities and collaborations. Say hello!
+          </p>
         </div>
 
-        {sent ? (
-          <div className="rounded-2xl border border-green-200 bg-green-50 p-6 text-green-800 dark:border-green-700/40 dark:bg-green-900/20 dark:text-green-200">
-            Thanks! Your message was captured locally for this demo. Replace with your email/API.
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex flex-col">
-                <label className="mb-1 text-sm text-slate-600 dark:text-slate-300">Name</label>
-                <input
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 rounded-2xl border border-black/5 dark:border-white/10 bg-white dark:bg-neutral-900 p-6 shadow-sm">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="mt-1 w-full rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-white outline-none focus:ring-2 ring-neutral-200 dark:ring-neutral-700"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="mt-1 w-full rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-white outline-none focus:ring-2 ring-neutral-200 dark:ring-neutral-700"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Message</label>
+                <textarea
                   required
-                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none ring-0 placeholder:text-slate-400 focus:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-                  placeholder="Your name"
+                  rows={5}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  className="mt-1 w-full rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-white outline-none focus:ring-2 ring-neutral-200 dark:ring-neutral-700"
                 />
               </div>
-              <div className="flex flex-col">
-                <label className="mb-1 text-sm text-slate-600 dark:text-slate-300">Email</label>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
-                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none ring-0 placeholder:text-slate-400 focus:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-                  placeholder="you@example.com"
-                />
-              </div>
-            </div>
-            <div className="mt-4 flex flex-col">
-              <label className="mb-1 text-sm text-slate-600 dark:text-slate-300">Message</label>
-              <textarea
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                rows={5}
-                required
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none ring-0 placeholder:text-slate-400 focus:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-                placeholder="Tell me about your project..."
-              />
-            </div>
-            <div className="mt-6 flex justify-end">
-              <button type="submit" className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-white shadow hover:bg-slate-800 dark:bg-white dark:text-slate-900">
-                <Send className="h-4 w-4" /> Send
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 text-white px-4 py-2.5 text-sm font-medium hover:bg-neutral-800 active:scale-[.99] transition"
+              >
+                <Send className="h-4 w-4" />
+                Send Message
               </button>
+              {status && (
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">{status}</p>
+              )}
+            </form>
+          </div>
+
+          <div className="rounded-2xl border border-black/5 dark:border-white/10 bg-white dark:bg-neutral-900 p-6 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="h-11 w-11 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+                <Mail className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
+              </div>
+              <div>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">Email</p>
+                <a
+                  href="mailto:vinayakdwivedi1212@gmail.com"
+                  className="font-medium text-neutral-900 dark:text-white hover:underline"
+                >
+                  vinayakdwivedi1212@gmail.com
+                </a>
+              </div>
             </div>
-          </form>
-        )}
+            <div className="mt-6">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">LinkedIn</p>
+              <a
+                href="https://www.linkedin.com/in/vinayak-dwivedi-1212vin"
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-neutral-900 dark:text-white hover:underline break-all"
+              >
+                www.linkedin.com/in/vinayak-dwivedi-1212vin
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
